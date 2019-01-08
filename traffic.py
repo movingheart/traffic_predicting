@@ -65,8 +65,8 @@ for i in range(trainK):
         trueValue[i][j] = reqs[i][j]
         w = np.zeros([1, T])
         w[0][j] = 1
-        X[(i - 1) * T + j,:] =np.append(w, [lastNDayRequest[i, j], lastSlotReqs[i, j], 1])
-        Y[(i - 1) * T + j, 0] = trueValue[i, j]
+        X[i * T + j,:] =np.append(w, [lastNDayRequest[i, j], lastSlotReqs[i, j], 1])
+        Y[i * T + j, 0] = trueValue[i, j]
 
 # LR, r为残差，rint置信区间，
 regression = LinearRegression()
@@ -79,8 +79,8 @@ for i in range(1):
     for j in range(T):
         w = np.zeros([1, T])
         w[0][j] = 1
-        x[(i - 1) * T + j, :] = np.append(w, [lastNDayRequest[i, j], lastSlotReqs[i, j], 1])
-        y[(i - 1) * T + j, 0] = trueValue[i, j]
+        x[i * T + j, :] = np.append(w, [lastNDayRequest[i, j], lastSlotReqs[i, j], 1])
+        y[i * T + j, 0] = trueValue[i, j]
 
 res = regression.predict(x)
 print("x:", x)
